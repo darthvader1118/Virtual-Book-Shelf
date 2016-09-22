@@ -1,0 +1,12 @@
+*{
+
+}
+
+body{
+  background: url(../images/paper-background.jpg);
+}
+
+.bookshelf{
+  background: url(../images/shelf.jpg);
+  height: 500px;
+}
