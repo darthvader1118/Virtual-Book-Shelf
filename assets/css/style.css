@@ -6,7 +6,11 @@ body{
   background: url(../images/paper-background.jpg);
 }
 
-.bookshelf{
+.card{
+  padding: 8px;
+}
+
+.bookshelf-panel{
   background: url(../images/shelf.jpg);
   height: 500px;
 }
