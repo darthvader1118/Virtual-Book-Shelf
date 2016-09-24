@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Virtual Bookshelf</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Materialize -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+  <link rel='stylesheet' href='assets/css/style.css'>
+</head>
+
+<body>
+  <div class='container'>
+      <div class='card white-text indigo darken-1 center-align'>
+          <h3>Virtual Bookshelf</h3>
+      </div>
+      <!-- Sorting buttons -->
+      <div class='row'>
+          <div class='right-align'>
+              <button class='blue accent-2 btn' id="abcTitle">ABC - Title</button>
+              <button class='blue accent-2 btn' id='abcAuthor'>ABC - Author</button>
+              <button class='blue accent-2 btn' id='year'>Year</button>
+          </div>
+      </div>
+      <!-- Books Go Here -->
+      <div class='card-panel bookshelf-panel transparent'>
+      </div>
+      <!-- Pagination -->
+      <ul class="pagination">
+          <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+          <li class="active blue accent-2"><a href="#!">1</a></li>
+          <li class="waves-effect"><a href="#!">2</a></li>
+          <li class="waves-effect"><a href="#!">3</a></li>
+          <li class="waves-effect"><a href="#!">4</a></li>
+          <li class="waves-effect"><a href="#!">5</a></li>
+          <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+      </ul>
+      <!-- User Input Panel -->
+      <div class='card'>
+          <h3>Add a book</h3>
+          <div class="row">
+              <div class="col s12">
+                  <ul class="tabs indigo darken-1">
+                      <li class="tab col s3"><a class="active" href="#ISBN-form">ISBN</a></li>
+                      <li class="tab col s3"><a href="#TA-form">Title/Author</a></li>
+                  </ul>
+              </div>
+              <div class="col s12">
+                  <form class='col s12' id="ISBN-form">
+                      <div class='input-field'>
+                          <input id='isbnInput' maxlength='13' type='number' class='validate'>
+                          <label for="isbnInput">ISBN Number</label>
+                          <button class='blue accent-2 btn' id='submit-isbn'>Submit</button>
+                      </div>
+                  </form>
+              </div>
+              <div class="col s12">
+                  <form class='col s12' id="TA-form">
+                      <div class='input-field'>
+                          <input id='titleInput' type='text' class='validate'>
+                          <label for="titleInput">Title</label>
+                      </div>
+                      <div class='input-field'>
+                          <input id='authorInput' type='text' class='validate'>
+                          <label for="authorInput">Author</label>
+                          <button class='blue accent-2 btn' id='submit-titleAuthor'>Submit</button>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+      <!-- List of books from search -->
+      <div class='row card-panel' id='searchResults'>
+          <h4>Search Results</h4>
+      </div>
+  </div>
+  <!-- JQuery -->
+  <script src='https://code.jquery.com/jquery.js'></script>
+  <!-- Materialize Javascipt -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/js/materialize.min.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <!-- Link to JS -->
+  <script type='text/javascript' src='assets/js/app.js'></script>
+</body>
+
+</html>
