@@ -1,0 +1,15 @@
+*{
+
+}
+
+body{
+  background: url(../images/Wood-panel-BG.jpg);
+}
+
+.card{
+  padding: 8px;
+}
+
+.bookshelf-panel{
+  height: 500px;
+}
