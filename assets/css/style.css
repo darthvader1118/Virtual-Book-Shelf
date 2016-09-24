@@ -3,7 +3,7 @@
 }
 
 body{
-  background: url(../images/paper-background.jpg);
+  background: url(../images/Wood-panel-BG.jpg);
 }
 
 .card{
@@ -11,6 +11,5 @@ body{
 }
 
 .bookshelf-panel{
-  background: url(../images/shelf.jpg);
   height: 500px;
 }
