@@ -91,36 +91,11 @@ $("#TA-form").on("submit", function(e){
 });
 
   // Conditionals for star ratings
-  if ( starRating == 0.0 ){
-
-  }
-  if ( starRating == 0.5 ){
-    
-  }
-  if ( starRating == 1.0 ){
-    
-  }
-  if ( starRating == 1.5 ){
-    
-  }
-  if ( starRating == 2.0 ){
-    
-  }
-  if ( starRating == 2.5 ){
-    
-  }
-  if ( starRating == 3.0 ){
-    
-  }
-  if ( starRating == 3.5 ){
-    
-  }
-  if ( starRating == 4.0 ){
-    
-  }
-  if ( starRating == 4.5 ){
-    
-  }
-  if ( starRating == 5.0 ){
-    
-  }
+  var reviewImg = $('<img>')
+  var source = "/assets/images/Stars-"
+  var j = ratingsArray.indexOf(starRating);
+  source = source + ratingsArray[j];
+  reviewImg.attr('src', source);
+  //might change later
+  $('#display').append(reviewImg);
+  
