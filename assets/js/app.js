@@ -98,44 +98,22 @@ $("#ISBN-form").on("submit", function(e){
   // Calls to dreambooks API to get NY Times reviews and ratings
   var dreambooksURL = "http://api/books/reviews.json?q=" + isbnInput + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
   $.ajax({url: dreambooksURL, method: 'GET'}).done(function(reviews){
-    var bookReview = reviews.book.critic_reviews[0].review_link;
+    var reviewLink = reviews.book.critic_reviews[0].review_link;
     var starRating = reviews.book.critic_reviews[0].star_rating;
     var snippet = reviews.book.critic_reviews[0].snippet;
     // jQuery for display when book is clicked on
-    $('#').html('<h3>Star Rating: ')
+  var reviewImg = $('<img>')
+  var source = "/assets/images/Stars-"
+  var j = ratingsArray.indexOf(starRating);
+  source = source + ratingsArray[j];
+  reviewImg.attr('src', source);
+  //might change later
+  $('#display').append(reviewImg);
   });
 
   // Conditionals for star Ratings
-  if ( starRating == 0.5 ){
-    
-  }
-  if ( starRating == 1.0 ){
-    
-  }
-  if ( starRating == 1.5 ){
-    
-  }
-  if ( starRating == 2.0 ){
-    
-  }
-  if ( starRating == 2.5 ){
-    
-  }
-  if ( starRating == 3.0 ){
-    
-  }
-  if ( starRating == 3.5 ){
-    
-  }
-  if ( starRating == 4.0 ){
-    
-  }
-  if ( starRating == 4.5 ){
-    
-  }
-  if ( starRating == 5.0 ){
-    
-  }
+
+})
 
 
 // Takes user Author/Title input from form and adds new book to virtual Bookshelf
@@ -149,20 +127,25 @@ $("#TA-form").on("submit", function(e){
   // Calls to dreambooks API to get NY Times book reviews and ratings
   var dreambooksURL = "http://api/books/reviews.json?q=" + titleInput + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
   $.ajax({url: dreambooksURL, method: 'GET'}).done(function(reviews){
-    var bookReview = reviews.book.critic_reviews[0].review_link;
+    var reviewLink = reviews.book.critic_reviews[0].review_link;
     var starRating = reviews.book.critic_reviews[0].star_rating;
     var snippet = reviews.book.critic_reviews[0].snippet;
     console.log()
+
+
+    
+    var reviewImg = $('<img>')
+    var source = "/assets/images/Stars-"
+    var j = ratingsArray.indexOf(starRating);
+    source = source + ratingsArray[j];
+    reviewImg.attr('src', source);
+    //might change later
+    $('#display').append(reviewImg);
   });
+  // Conditionals for star ratings
+  
+  
 });
 
-  // Conditionals for star ratings
-  var reviewImg = $('<img>')
-  var source = "/assets/images/Stars-"
-  var j = ratingsArray.indexOf(starRating);
-  source = source + ratingsArray[j];
-  reviewImg.attr('src', source);
-  //might change later
-  $('#display').append(reviewImg);
   
 
