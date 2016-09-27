@@ -13,3 +13,7 @@ body{
 .bookshelf-panel{
   height: 500px;
 }
+
+.coverCSS{
+  margin: 10px;
+}
