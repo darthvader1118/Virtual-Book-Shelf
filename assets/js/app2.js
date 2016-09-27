@@ -40,7 +40,7 @@ function bookSearch(){
       }
     }
   })
-    // Set up empty array for star rating images and other variables
+  // Set up empty array for star rating images and other variables
   var ratingsArray = [];
   var reviewLink;
   var starRating;
@@ -63,6 +63,7 @@ function bookSearch(){
     // //might change later
     // $('#display').append(reviewImg);
   });
+  
   // .done(function() {
   //   console.log("success");
   // })
@@ -76,8 +77,7 @@ function bookSearch(){
   $('#titleInput').val(" ");
   return false;
   }
-  
- 
+
 
 $(document).on('click', '#submit-titleAuthor', bookSearch);
 
@@ -90,7 +90,6 @@ $(document).on('click', '.thisBook', function(){
   var img = $(this).data('images');
   cover.attr('src', img).addClass('coverCSS bookInfo');
   $('.bookshelf-panel').append(cover);
-
 });
 
 //Clicking books on shelf to grab info
@@ -112,6 +111,12 @@ $(document).on('click', '.bookInfo', function(){
   bookInfoDiv.append(closerBtn, bookInfo);
   $('.bookshelf-panel').append(bookInfoDiv);
 });
+
+
+
+
+
+
 
 
 
