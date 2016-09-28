@@ -4,15 +4,16 @@
 
 body{
   background: url(../images/Wood-panel-BG.jpg);
+  font-family: 'Goudy Bookletter 1911', Helvetica, serif;
 }
 
 .card{
   padding: 8px;
 }
 
-.bookshelf-panel{
+/*.bookshelf-panel{
   height: 500px;
-}
+}*/
 
 .coverCSS{
   margin: 10px;
