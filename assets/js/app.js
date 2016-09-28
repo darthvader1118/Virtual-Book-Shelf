@@ -1,69 +1,3 @@
-function bookSearch(){
-
-  var search = $('#titleInput').val().trim();
-  // parseSearch adds the + sign in between search words, might not need it
-  var parseSearch = search.split(" ").join("+");
-
-  console.log(parseSearch);
-
-  $.ajax({
-    url: 'https://www.googleapis.com/books/v1/volumes?q=' + search,
-    type: 'GET',
-    dataType: 'JSON',
-    data: {param1: 'value1'},
-    success: function(data) {
-      for (var i = 0; i < data.items.length; i++) {
-      var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
-      var titles = data.items[i].volumeInfo.title;
-      var authors = data.items[i].volumeInfo.authors;
-      var description = data.items[i].volumeInfo.description;
-      var price = data.items[i].saleInfo.retailPrice;
-      var bookTitle = $('<div>').addClass('thisBook');
-      bookTitle.attr({'data-images': images}).attr({'data-description': description}).attr({'data-price': price}).attr({'data-title': titles}).attr({'data-author': authors});
-      bookTitle.append("<h4>" + titles + "</h4>" + " <h5>" + authors + "</h5>");
-      $('#searchResults').append(bookTitle);
-    }
-
-    }
-
-    
-  })
-  .done(function() {
-    console.log("success");
-  })
-  .fail(function() {
-    console.log("error");
-  })
-  .always(function() {
-    console.log("complete");
-  });
-  
-   $('#titleInput').val(" ");
-
-  return false;
-
-
-}
-
-
-$(document).on('click', '#submit-titleAuthor', bookSearch);
-
-// When user selects from Search Results
-$(document).on('click', '.thisBook', function(){
-  $('#searchResults').empty();
-  console.log($(this).data('title'));
-  var cover = $("<img height='200px'>");
-  var img = $(this).data('images');
-
-  cover.attr('src', img).addClass('coverCSS bookInfo');
-  $('.bookshelf-panel').append(cover);
-});
-
-//Clicking books on shelf to grab info
-$(document).on('click', '.bookInfo', function(){
-  // var title2 = $(this).data('titles')
-});
-
 // Initialize Firebase
 var config = {
   apiKey: "AIzaSyBeB0EnQ2TZwhzZMhlN3361_lpqjD3Dtv4",
@@ -77,75 +11,108 @@ firebase.initializeApp(config);
 var database = firebase.database();
 console.log("Firebase");
 
-// Set up empty array for star rating images
-var ratingsArray = []
-
-// Set global variables
+// Global variables
 
 
-// Takes user ISBN input from form and adds new book to virtual Bookshelf
-$("#ISBN-form").on("submit", function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  var isbnInput = $('#isbninput').val().trim();
-  // Auto pushes up to book shelf
 
-  // Using ISBN # retrieve title author summary and possibly reviews
-  database.ref().push({
-    ISBN : isbnInput
+// Function to search for books by title 
+function bookSearch(){
+  var search = $('#titleInput').val().trim();
+  // parseSearch adds the + sign in between search words, might not need it
+  var parseSearch = search.split(" ").join("+");
+  console.log(parseSearch);
+
+  $.ajax({
+    url: 'https://www.googleapis.com/books/v1/volumes?q=' + search,
+    type: 'GET',
+    dataType: 'JSON',
+    data: {param1: 'value1'},
+    success: function(data) {
+      for (var i = 0; i < data.items.length; i++) {
+      var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
+      var titles = data.items[i].volumeInfo.title;
+      var authors = data.items[i].volumeInfo.authors;
+      var description = data.items[i].volumeInfo.description;
+      var bookTitle = $('<div>').addClass('thisBook');
+      bookTitle.attr({'data-images': images}).attr({'data-description': description}).attr({'data-title': titles}).attr({'data-author': authors});
+      bookTitle.append("<h4>" + titles + "</h4>" + " <h5>" + authors + "</h5>");
+      $('#searchResults').append(bookTitle);
+      }
+    }
   })
-
-  // Calls to dreambooks API to get NY Times reviews and ratings
-  var dreambooksURL = "http://api/books/reviews.json?q=" + isbnInput + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
+    // Set up empty array for star rating images and other variables
+  var ratingsArray = [];
+  var reviewLink;
+  var starRating;
+  // var isbnInput;
+  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + parseSearch + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
   $.ajax({url: dreambooksURL, method: 'GET'}).done(function(reviews){
-    var reviewLink = reviews.book.critic_reviews[0].review_link;
-    var starRating = reviews.book.critic_reviews[0].star_rating;
-    var snippet = reviews.book.critic_reviews[0].snippet;
-    // jQuery for display when book is clicked on
-  var reviewImg = $('<img>')
-  var source = "/assets/images/Stars-"
-  var j = ratingsArray.indexOf(starRating);
-  source = source + ratingsArray[j];
-  reviewImg.attr('src', source);
-  //might change later
-  $('#display').append(reviewImg);
+  reviewLink = reviews.book.critic_reviews[0].review_link;
+  starRating = reviews.book.critic_reviews[0].star_rating;
+      // jQuery for display when book is clicked on
+    // $('#display').html('<h3>Star Rating: ' + starRating + '<h3>')
+    // $('#display').html('<h3>Review Link: ' + reviewLink + '<h3>')
+    console.log(reviewLink);
+    console.log(starRating);
+   // Creating star rating image dynamically
+    // var reviewImg = $('<img>')
+    // var source = "/assets/images/Stars-"
+    // var j = ratingsArray.indexOf(starRating);
+    // source = source + ratingsArray[j];
+    // reviewImg.attr('src', source);
+    // //might change later
+    // $('#display').append(reviewImg);
   });
-
-  // Conditionals for star Ratings
-
-})
-
-
-// Takes user Author/Title input from form and adds new book to virtual Bookshelf
-$("#TA-form").on("submit", function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  var titleInput = $('#titleInput').val().trim()
-  var authorInput = $('#authorInput').val().trim()
-  // Gives person options based on author or title, then click to send up info
-
-  // Calls to dreambooks API to get NY Times book reviews and ratings
-  var dreambooksURL = "http://api/books/reviews.json?q=" + titleInput + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
-  $.ajax({url: dreambooksURL, method: 'GET'}).done(function(reviews){
-    var reviewLink = reviews.book.critic_reviews[0].review_link;
-    var starRating = reviews.book.critic_reviews[0].star_rating;
-    var snippet = reviews.book.critic_reviews[0].snippet;
-    console.log()
-
-
-    
-    var reviewImg = $('<img>')
-    var source = "/assets/images/Stars-"
-    var j = ratingsArray.indexOf(starRating);
-    source = source + ratingsArray[j];
-    reviewImg.attr('src', source);
-    //might change later
-    $('#display').append(reviewImg);
-  });
-  // Conditionals for star ratings
+  // .done(function() {
+  //   console.log("success");
+  // })
+  // .fail(function() {
+  //   console.log("error");
+  // })
+  // .always(function() {
+  //   console.log("complete");
+  // });
   
+  $('#titleInput').val(" ");
+  return false;
+  }
   
+ 
+
+$(document).on('click', '#submit-titleAuthor', bookSearch);
+
+// When user selects from Search Results
+$(document).on('click', '.thisBook', function(){
+  $('#searchResults').empty();
+  console.log($(this).data('title'));
+  var cover = $("<img height='200px'>");
+  cover.attr({'data-title': $(this).data('title')}).attr({'data-author': $(this).data('author')}).attr({'data-description': $(this).data('description')}).attr({'data-price': $(this).data('price')});
+  var img = $(this).data('images');
+  cover.attr('src', img).addClass('coverCSS bookInfo');
+  $('.bookshelf-panel').append(cover);
+
 });
 
+//Clicking books on shelf to grab info
+$(document).on('click', '.bookInfo', function(){
+  var title2 = $(this).data('title');
+  console.log(title2);
+  var author2 = $(this).data('author');
+  console.log(author2);
+  var description2 = $(this).data('description');
+  console.log(description2);
   
+
+  var bookInfoDiv = $('<div>');
+  bookInfoDiv.addClass('alert alert-info')
+  var closerBtn = $('<button type="button" class="close" data-dismiss="alert">')
+  closerBtn.html('X');
+  var bookInfo = $('<div>');
+  bookInfo.append(title2, author2, description2);
+  bookInfoDiv.append(closerBtn, bookInfo);
+  $('.bookshelf-panel').append(bookInfoDiv);
+});
+
+
+
 
