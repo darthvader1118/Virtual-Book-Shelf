@@ -12,14 +12,15 @@ var database = firebase.database();
 console.log("Firebase");
 
 // Global variables
-
-
+var titleVars = []
+var j = 0;
 
 // Function to search for books by title 
 function bookSearch(){
   var search = $('#titleInput').val().trim();
   // parseSearch adds the + sign in between search words, might not need it
   var parseSearch = search.split(" ").join("+");
+  titleVars.push(parseSearch);
   console.log(parseSearch);
 
   $.ajax({
@@ -98,8 +99,11 @@ $(document).on('click', '.bookInfo', function(){
   var reviewLink;
   var starRating;
   // var isbnInput;
-  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + parseSearch + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
-  $.ajax({url: dreambooksURL, method: 'GET'}).done(function(reviews){
+  var search2 = titleVars[j];
+  var parseSearch2 = search2.split(" ").join("+");
+  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + parseSearch2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
+  $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
+    console.log(reviews);
   reviewLink = reviews.book.critic_reviews[0].review_link;
   starRating = reviews.book.critic_reviews[0].star_rating;
       // jQuery for display when book is clicked on
@@ -109,13 +113,15 @@ $(document).on('click', '.bookInfo', function(){
     console.log(starRating);
    // Creating star rating image dynamically
     var reviewImg = $('<img>')
-    var source = "/assets/images/Stars-"
+    var source = "./assets/images/Stars-"
     var j = ratingsArray.indexOf(starRating);
-    source = source + ratingsArray[j];
+    source = source + ratingsArray[j] + ".jpg";
     reviewImg.attr('src', source);
     //might change later
     $('.bookshelf-panel').append(reviewImg);
+
   });
+  j++;
 });
 
 
