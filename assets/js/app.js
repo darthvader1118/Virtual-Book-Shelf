@@ -11,6 +11,7 @@ firebase.initializeApp(config);
 var database = firebase.database();
 console.log("Firebase");
 
+// FIREBASE NOT COMPLETE
 // At initial load, get snapshot of current data
 database.ref().on("value", function(snap){
 
@@ -79,7 +80,6 @@ $(document).on('click', '.thisBook', function(){
 
 //Clicking books on shelf to grab info
 $(document).on('click', '.bookInfo', function(){
-  swal("Here's a message!");
   var title2 = $(this).data('title');
   console.log(title2);
   var author2 = $(this).data('author');
@@ -99,7 +99,11 @@ $(document).on('click', '.bookInfo', function(){
   bookInfo.append(title2, author2, description2, reviewLink, starRating);
   bookInfoDiv.append(closerBtn, bookInfo);
   $('.bookshelf-panel').append(bookInfoDiv);
-
+   swal({
+    title: "Here's a message!",
+    text: "Yo yo yo!",
+    imageUrl: "http://placecage.com/200/200"
+  });
 
   // Set up empty array for star rating images and other variables
   var ratingsArray = [];
