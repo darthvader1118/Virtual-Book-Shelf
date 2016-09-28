@@ -4,7 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Virtual Bookshelf</title>
+<<<<<<< HEAD
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+=======
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css?family=Goudy+Bookletter+1911" rel="stylesheet">
+>>>>>>> 3a15a4ab9a298f881543309b68bfb5b251cefb06
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Materialize -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
@@ -13,30 +18,37 @@
 
 <body>
   <div class='container'>
-      <div class='card white-text indigo darken-1 center-align'>
+      <div class='card white-text indigo darken-1 z-depth-4 center-align'>
           <h3>Virtual Bookshelf</h3>
       </div>
       <!-- Sorting buttons -->
       <div class='row'>
           <div class='right-align'>
-              <button class='blue accent-2 btn' id="abcTitle">ABC - Title</button>
-              <button class='blue accent-2 btn' id='abcAuthor'>ABC - Author</button>
-              <button class='blue accent-2 btn' id='year'>Year</button>
+              <button class='blue accent-2 btn z-depth-4' id="abcTitle">Title (ABC)</button>
+              <button class='blue accent-2 btn z-depth-4' id='abcAuthor'>Author (ABC)</button>
+              <button class='blue accent-2 btn z-depth-4' id='year'>Year</button>
           </div>
       </div>
       <!-- Books Go Here -->
       <div class='card-panel bookshelf-panel transparent'>
+        <table id='bookshelf'>
+          <tbody>
+
+          </tbody>
+        </table>
       </div>
+
       <!-- Pagination -->
-      <ul class="pagination">
+      <!-- <ul class="pagination">
           <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-          <li class="active blue accent-2"><a href="#!">1</a></li>
-          <li class="waves-effect"><a href="#!">2</a></li>
-          <li class="waves-effect"><a href="#!">3</a></li>
-          <li class="waves-effect"><a href="#!">4</a></li>
-          <li class="waves-effect"><a href="#!">5</a></li>
+          <li class="active blue accent-2"><a href="#Page-1">1</a></li>
+          <li class="waves-effect"><a href="#Page-2">2</a></li>
+          <li class="waves-effect"><a href="#Page-3">3</a></li>
+          <li class="waves-effect"><a href="#Page-4">4</a></li>
+          <li class="waves-effect"><a href="#Page-5">5</a></li>
           <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-      </ul>
+      </ul> -->
+
       <!-- User Input Panel -->
       <div class='card'>
           <h3>Add a book</h3>
@@ -44,14 +56,15 @@
               <div class="col s12">
                   <ul class="tabs indigo darken-1">
                       <li class="tab col s3"><a class="active" href="#ISBN-form">ISBN</a></li>
-                      <li class="tab col s3"><a href="#TA-form">Title/Author</a></li>
+                      <li class="tab col s3"><a href="#TA-form">Title</a></li>
                   </ul>
               </div>
               <div class="col s12">
                   <form class='col s12' id="ISBN-form">
                       <div class='input-field'>
-                          <input id='isbnInput' maxlength='13' type='number' class='validate'>
+                          <input id='isbnInput' maxlength="13" type='number' class='validate'>
                           <label for="isbnInput">ISBN Number</label>
+                          <div id='isbnErrorMsg'></div>
                           <button class='blue accent-2 btn' id='submit-isbn'>Submit</button>
                       </div>
                   </form>
@@ -62,11 +75,12 @@
                           <input id='titleInput' type='text' class='validate'>
                           <label for="titleInput">Title</label>
                       </div>
-                      <div class='input-field'>
+                      <!-- <div class='input-field'>
                           <input id='authorInput' type='text' class='validate'>
                           <label for="authorInput">Author</label>
-                          <button class='blue accent-2 btn' id='submit-titleAuthor'>Submit</button>
-                      </div>
+                          <div id='titleAuthorErrorMsg'></div>
+                      </div> -->
+                      <button class='blue accent-2 btn' id='submit-titleAuthor'>Submit</button>
                   </form>
               </div>
           </div>
@@ -74,7 +88,11 @@
       <!-- List of books from search -->
       <div class='row card-panel'>
           <h4>Search Results</h4>
+<<<<<<< HEAD
           <div id ='searchResults'></div>
+=======
+           <div id='searchResults'></div>
+>>>>>>> 3a15a4ab9a298f881543309b68bfb5b251cefb06
       </div>
   </div>
   <!-- JQuery -->
