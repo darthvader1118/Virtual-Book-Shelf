@@ -100,7 +100,6 @@ $(document).on('click', '.bookInfo', function(){
   bookInfoDiv.append(closerBtn, bookInfo);
   $('.bookshelf-panel').append(bookInfoDiv);
 
-
   // Set up empty array for star rating images and other variables
 
      // Set up empty array for star rating images and other variables
@@ -127,11 +126,16 @@ $(document).on('click', '.bookInfo', function(){
    // Creating star rating image dynamically
     var reviewImg = $('<img>')
     var source = "/assets/images/Stars-"
+    var reviewImg = $('<img height="25px">')
+    var source = "./assets/images/Stars-"
     var j = ratingsArray.indexOf(starRating);
     source = source + ratingsArray[j];
     reviewImg.attr('src', source);
     //might change later
     $('.bookshelf-panel').append(reviewImg);
+    bookInfo.append(title2, author2, reviewImg, starRating, reviewLink, description2);
+    bookInfoDiv.append(closerBtn, bookInfo);
+    $('.bookshelf-panel').append(bookInfoDiv);
   });
   j++;
 });
