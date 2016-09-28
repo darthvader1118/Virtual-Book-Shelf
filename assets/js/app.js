@@ -68,7 +68,7 @@ $(document).on('click', '.thisBook', function(){
   cover.attr({'data-title': $(this).data('title')}).attr({'data-author': $(this).data('author')}).attr({'data-description': $(this).data('description')}).attr({'data-price': $(this).data('price')});
   var img = $(this).data('images');
   cover.attr('src', img).addClass('coverCSS bookInfo');
-  $('.bookshelf-panel').append(cover);
+  $('#bookshelf').append(cover);
 
 });
 
@@ -87,9 +87,8 @@ $(document).on('click', '.bookInfo', function(){
   var closerBtn = $('<button type="button" class="close" data-dismiss="alert">')
   closerBtn.html('X');
   var bookInfo = $('<div>');
-  bookInfo.append(title2, author2, description2);
-  bookInfoDiv.append(closerBtn, bookInfo);
-  $('.bookshelf-panel').append(bookInfoDiv);
+  
+  
 
      // Set up empty array for star rating images and other variables
   var ratingsArray = [];
@@ -112,13 +111,15 @@ $(document).on('click', '.bookInfo', function(){
     console.log(reviewLink);
     console.log(starRating);
    // Creating star rating image dynamically
-    var reviewImg = $('<img>')
+    var reviewImg = $('<img height="25px">')
     var source = "./assets/images/Stars-"
     var j = ratingsArray.indexOf(starRating);
     source = source + ratingsArray[j] + ".jpg";
     reviewImg.attr('src', source);
     //might change later
-    $('.bookshelf-panel').append(reviewImg);
+    bookInfo.append(title2, author2, reviewImg, starRating, reviewLink, description2);
+    bookInfoDiv.append(closerBtn, bookInfo);
+    $('.bookshelf-panel').append(bookInfoDiv);
 
   });
   j++;
