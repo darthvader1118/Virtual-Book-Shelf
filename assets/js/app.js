@@ -25,6 +25,11 @@ var j = 0;
 
 // Function to search for books by title
 function bookSearch(){
+  //clears the searchResults if the user decides to send a new search
+  if ($('#searchResults').html() != ""){
+    $('#searchResults').empty();
+  }
+
   var search = $('#titleInput').val().trim();
   // parseSearch adds the + sign in between search words, might not need it
   var parseSearch = search.split(" ").join("+");
@@ -37,6 +42,9 @@ function bookSearch(){
     dataType: 'JSON',
     data: {param1: 'value1'},
     success: function(data) {
+      if(data.items.length == 0){
+        //tell the user to pick another title/author
+      }
       for (var i = 0; i < data.items.length; i++) {
       var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
       var titles = data.items[i].volumeInfo.title;
@@ -79,13 +87,6 @@ $(document).on('click', '.thisBook', function(){
   });
 
   $('#searchResults').empty();
-  // console.log($(this).data('title'));
-  // var cover = $("<img height='200px'>");
-  // cover.attr({'data-year': $(this).data('year')}).attr({'data-title': $(this).data('title')}).attr({'data-author': $(this).data('author')}).attr({'data-description': $(this).data('description')});
-  // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
-  // var img = $(this).data('images');
-  // cover.attr('src', img).addClass('coverCSS bookInfo');
-  // $('.bookshelf-panel').append(cover);
 
  // Creates local "temporary" object for holding book data
   var newBook = {
@@ -93,7 +94,9 @@ $(document).on('click', '.thisBook', function(){
     title: $(this).data('title'),
     author:  $(this).data('author'),
     year: $(this).data('year'),
-    description: $(this).data('description')
+    description: $(this).data('description'),
+    reviewLink: reviewLink,
+    starRating: starRating
   }
 
   database.ref().push(newBook);
@@ -124,7 +127,7 @@ $(document).on('click', '.bookInfo', function(){
   // if (displayLink == 'no review'){
     //link = "No review.";
   //}
- 
+
     //Sweet Alert!
     swal({
       title: displayTitle,
