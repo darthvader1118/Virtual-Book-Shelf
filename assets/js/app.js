@@ -72,8 +72,8 @@ $(document).on('click', '.thisBook', function(){
 
   $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
     console.log(reviews);
-    reviewLink = reviews.book.critic_reviews[0].review_link;
-    starRating = reviews.book.critic_reviews[0].star_rating;
+    reviewLink = reviews.book.critic_reviews ? reviews.book.critic_reviews[0].review_link : 'no reviews';
+    starRating = reviews.book.critic_reviews ? reviews.book.critic_reviews[0].star_rating : '0';
 
   });
 
@@ -111,68 +111,17 @@ database.ref().on("child_added", function(snapshot) {
 
 //Clicking books on shelf to grab info
 $(document).on('click', '.bookInfo', function(){
-  var title2 = $(this).data('title');
-  var author2 = $(this).data('author');
-  var description2 = $(this).data('description');
-
-  console.log(description2);
-
-
-
-   // Set up empty array for star rating images and other variables
-  var ratingsArray = [];
-  for(var i = 0; i < 10.5; i = i + 0.5){
-    ratingsArray.push(i);
-  }
-  var reviewLink;
-  var starRating;
-  var search2 = titleVars[j];
-  var parseSearch2 = search2.split(" ").join("+");
-  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + parseSearch2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
-  $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
-  console.log(reviews);
-  reviewLink = reviews.book.critic_reviews[0].review_link;
-  starRating = reviews.book.critic_reviews[0].star_rating;
-   // jQuery for display when book is clicked on
-  // $('#display').html('<h3>Star Rating: ' + starRating + '<h3>')
-  // $('#display').html('<h3>Review Link: ' + reviewLink + '<h3>')
-  console.log(reviewLink);
-  console.log(starRating);
- // Creating star rating image dynamically
-  var source = "/assets/images/Stars-"
-  var reviewImg = $('<img height="25px">')
-  var source = "./assets/images/Stars-"
-  var j = ratingsArray.indexOf(starRating);
-  source = source + ratingsArray[j] + ".jpg";
-  reviewImg.attr('src', source);
-
-  //sweet alert
-  swal({
-    title: title2,
-    text: author2, description2
-  });
-  // swal("Here's a message!");
-  // var title2 = $(this).data('title');
-  // console.log(title2);
-  // var author2 = $(this).data('author');
-  // console.log(author2);
-  // var description2 = $(this).data('description');
-  // console.log(description2);
-  
-  var bookInfoDiv = $('<div>');
-  bookInfoDiv.addClass('alert alert-info')
-  var closerBtn = $('<button type="button" class="close" data-dismiss="alert">')
-  closerBtn.html('X');
-  var bookInfo = $('<div>');
-
- 
-  //might change later
-  $('.bookshelf-panel').append(reviewImg);
-  bookInfo.append(title2, author2, reviewImg, starRating, reviewLink, description2);
-  bookInfoDiv.append(closerBtn, bookInfo);
-  $('.bookshelf-panel').append(bookInfoDiv);
-  });
-  j++;
+  console.log(this);
+  var displayTitle = $(this).data('title');
+  var displayAuthor = $(this).data('author');
+  var displaySummary = $(this).data('description');
+  var displayAuthor = $(this).data('author');
+    //sweet alert
+    swal({
+      title: displayTitle,
+      text: "this is just a test"
+      // imageUrl: "../images/Stars-0.5.jpg"
+    });
 
 });
 
