@@ -115,12 +115,15 @@ $(document).on('click', '.bookInfo', function(){
   var displayTitle = $(this).data('title');
   var displayAuthor = $(this).data('author');
   var displaySummary = $(this).data('description');
-  var displayAuthor = $(this).data('author');
+  // var displayLink = $(this).data('reviewLink');
+  // var displayStars = $(this).data('starRating');
+ 
     //sweet alert
     swal({
       title: displayTitle,
-      text: "this is just a test"
-      // imageUrl: "../images/Stars-0.5.jpg"
+      text: "<h5>" + displayAuthor + "</h5>" + "<p>" + displaySummary + "</p>" /*+ "<a href=" + displayLink + ">New York Times</a>"*/,
+      // imageUrl: "../images/Stars-" + displayStars + ".jpg"
+      html: true
     });
 
 });
