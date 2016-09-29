@@ -25,6 +25,11 @@ var j = 0;
 
 // Function to search for books by title
 function bookSearch(){
+  //clears the searchResults if the user decides to send a new search
+  if ($('#searchResults').html() != ""){
+    $('#searchResults').empty();
+  }
+
   var search = $('#titleInput').val().trim();
   // parseSearch adds the + sign in between search words, might not need it
   var parseSearch = search.split(" ").join("+");
@@ -72,19 +77,13 @@ $(document).on('click', '.thisBook', function(){
 
   $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
     console.log(reviews);
-    reviewLink = reviews.book.critic_reviews[0].review_link;
-    starRating = reviews.book.critic_reviews[0].star_rating;
-
+    reviewLink = reviews.book.critic_reviews ? reviews.book.critic_reviews[0].review_link : 'no reviews';
+    starRating = reviews.book.critic_reviews ? reviews.book.critic_reviews[0].star_rating : '0';
+    console.log(reviewLink);
+    console.log(starRating);
   });
 
   $('#searchResults').empty();
-  // console.log($(this).data('title'));
-  // var cover = $("<img height='200px'>");
-  // cover.attr({'data-year': $(this).data('year')}).attr({'data-title': $(this).data('title')}).attr({'data-author': $(this).data('author')}).attr({'data-description': $(this).data('description')});
-  // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
-  // var img = $(this).data('images');
-  // cover.attr('src', img).addClass('coverCSS bookInfo');
-  // $('.bookshelf-panel').append(cover);
 
  // Creates local "temporary" object for holding book data
   var newBook = {
@@ -93,6 +92,8 @@ $(document).on('click', '.thisBook', function(){
     author:  $(this).data('author'),
     year: $(this).data('year'),
     description: $(this).data('description')
+    // reviewLink: reviewLink,
+    // starRating: starRating
   }
 
   database.ref().push(newBook);
@@ -111,68 +112,38 @@ database.ref().on("child_added", function(snapshot) {
 
 //Clicking books on shelf to grab info
 $(document).on('click', '.bookInfo', function(){
-  var title2 = $(this).data('title');
-  var author2 = $(this).data('author');
-  var description2 = $(this).data('description');
+  console.log(this);
+  var that = this;
+  var displayTitle = $(this).data('title');
+  var displayAuthor = $(this).data('author');
+  var displaySummary = $(this).data('description');
+  // var displayLink = $(this).data('reviewLink');
+  // var displayStars = $(this).data('starRating');
+  // var link = "New York Times"
 
-  console.log(description2);
+  // if (displayLink == 'no review'){
+    //link = "No review.";
+  //}
 
-
-
-   // Set up empty array for star rating images and other variables
-  var ratingsArray = [];
-  for(var i = 0; i < 10.5; i = i + 0.5){
-    ratingsArray.push(i);
-  }
-  var reviewLink;
-  var starRating;
-  var search2 = titleVars[j];
-  var parseSearch2 = search2.split(" ").join("+");
-  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + parseSearch2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
-  $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
-  console.log(reviews);
-  reviewLink = reviews.book.critic_reviews[0].review_link;
-  starRating = reviews.book.critic_reviews[0].star_rating;
-   // jQuery for display when book is clicked on
-  // $('#display').html('<h3>Star Rating: ' + starRating + '<h3>')
-  // $('#display').html('<h3>Review Link: ' + reviewLink + '<h3>')
-  console.log(reviewLink);
-  console.log(starRating);
- // Creating star rating image dynamically
-  var source = "/assets/images/Stars-"
-  var reviewImg = $('<img height="25px">')
-  var source = "./assets/images/Stars-"
-  var j = ratingsArray.indexOf(starRating);
-  source = source + ratingsArray[j] + ".jpg";
-  reviewImg.attr('src', source);
-
-  //sweet alert
-  swal({
-    title: title2,
-    text: author2, description2
-  });
-  // swal("Here's a message!");
-  // var title2 = $(this).data('title');
-  // console.log(title2);
-  // var author2 = $(this).data('author');
-  // console.log(author2);
-  // var description2 = $(this).data('description');
-  // console.log(description2);
-  
-  var bookInfoDiv = $('<div>');
-  bookInfoDiv.addClass('alert alert-info')
-  var closerBtn = $('<button type="button" class="close" data-dismiss="alert">')
-  closerBtn.html('X');
-  var bookInfo = $('<div>');
-
- 
-  //might change later
-  $('.bookshelf-panel').append(reviewImg);
-  bookInfo.append(title2, author2, reviewImg, starRating, reviewLink, description2);
-  bookInfoDiv.append(closerBtn, bookInfo);
-  $('.bookshelf-panel').append(bookInfoDiv);
-  });
-  j++;
+    //Sweet Alert!
+    swal({
+      title: displayTitle,
+      text: "<h5>" + displayAuthor + "</h5>" + "<p>" + displaySummary + "</p>" /*+ "<a href=" + displayLink + "> + link + </a>"*/,
+      // imageUrl: "../images/Stars-" + displayStars + ".jpg"
+      html: true,
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Remove book from shelf",
+      cancelButtonText: "Done",
+      closeOnConfirm: false,
+      closeOnCancel: true
+      },
+        function(isConfirm){
+          if (isConfirm) {
+            that.remove();
+            swal("Removed!", "Your book has been removed from the shelf", "success");
+          }
+    });
 
 });
 
