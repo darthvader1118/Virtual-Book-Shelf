@@ -74,7 +74,8 @@ $(document).on('click', '.thisBook', function(){
     console.log(reviews);
     reviewLink = reviews.book.critic_reviews ? reviews.book.critic_reviews[0].review_link : 'no reviews';
     starRating = reviews.book.critic_reviews ? reviews.book.critic_reviews[0].star_rating : '0';
-
+    console.log(reviewLink);
+    console.log(starRating);
   });
 
   $('#searchResults').empty();
@@ -112,18 +113,36 @@ database.ref().on("child_added", function(snapshot) {
 //Clicking books on shelf to grab info
 $(document).on('click', '.bookInfo', function(){
   console.log(this);
+  var that = this;
   var displayTitle = $(this).data('title');
   var displayAuthor = $(this).data('author');
   var displaySummary = $(this).data('description');
   // var displayLink = $(this).data('reviewLink');
   // var displayStars = $(this).data('starRating');
+  // var link = "New York Times"
+
+  // if (displayLink == 'no review'){
+    //link = "No review.";
+  //}
  
-    //sweet alert
+    //Sweet Alert!
     swal({
       title: displayTitle,
-      text: "<h5>" + displayAuthor + "</h5>" + "<p>" + displaySummary + "</p>" /*+ "<a href=" + displayLink + ">New York Times</a>"*/,
+      text: "<h5>" + displayAuthor + "</h5>" + "<p>" + displaySummary + "</p>" /*+ "<a href=" + displayLink + "> + link + </a>"*/,
       // imageUrl: "../images/Stars-" + displayStars + ".jpg"
-      html: true
+      html: true,
+      showCancelButton: true,
+      confirmButtonColor: "#DD6B55",
+      confirmButtonText: "Remove book from shelf",
+      cancelButtonText: "Done",
+      closeOnConfirm: false,
+      closeOnCancel: true
+      },
+        function(isConfirm){
+          if (isConfirm) {
+            that.remove();
+            swal("Removed!", "Your book has been removed from the shelf", "success");
+          }
     });
 
 });
