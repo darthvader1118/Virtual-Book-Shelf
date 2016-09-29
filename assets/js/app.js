@@ -42,16 +42,21 @@ function bookSearch(){
     dataType: 'JSON',
     data: {param1: 'value1'},
     success: function(data) {
-      for (var i = 0; i < data.items.length; i++) {
-      var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
-      var titles = data.items[i].volumeInfo.title;
-      var authors = data.items[i].volumeInfo.authors;
-      var years = data.items[i].volumeInfo.publishedDate;
-      var description = data.items[i].volumeInfo.description;
-      var bookTitle = $('<div>').addClass('thisBook');
-      bookTitle.attr({'data-year': years}).attr({'data-images': images}).attr({'data-description': description}).attr({'data-title': titles}).attr({'data-author': authors});
-      bookTitle.append("<h4>" + titles + "</h4>" + " <h5>" + authors + "</h5>");
-      $('#searchResults').append(bookTitle);
+     if(data.totalItems ==0){
+        $('#searchResults').html('No results were found for: ' + search + '. Try another author/title')
+        console.log("Error")
+      } else{
+          for (var i = 0; i < data.items.length; i++) {
+          var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
+          var titles = data.items[i].volumeInfo.title;
+          var authors = data.items[i].volumeInfo.authors;
+          var years = data.items[i].volumeInfo.publishedDate;
+          var description = data.items[i].volumeInfo.description;
+          var bookTitle = $('<div>').addClass('thisBook');
+          bookTitle.attr({'data-year': years}).attr({'data-images': images}).attr({'data-description': description}).attr({'data-title': titles}).attr({'data-author': authors});
+          bookTitle.append("<h4>" + titles + "</h4>" + " <h5>" + authors + "</h5>");
+          $('#searchResults').append(bookTitle);
+          }
       }
     }
   })
