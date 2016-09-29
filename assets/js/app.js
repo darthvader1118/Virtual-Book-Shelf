@@ -42,9 +42,6 @@ function bookSearch(){
     dataType: 'JSON',
     data: {param1: 'value1'},
     success: function(data) {
-      if(data.items.length == 0){
-        //tell the user to pick another title/author
-      }
       for (var i = 0; i < data.items.length; i++) {
       var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
       var titles = data.items[i].volumeInfo.title;
@@ -94,9 +91,9 @@ $(document).on('click', '.thisBook', function(){
     title: $(this).data('title'),
     author:  $(this).data('author'),
     year: $(this).data('year'),
-    description: $(this).data('description'),
-    reviewLink: reviewLink,
-    starRating: starRating
+    description: $(this).data('description')
+    // reviewLink: reviewLink,
+    // starRating: starRating
   }
 
   database.ref().push(newBook);
