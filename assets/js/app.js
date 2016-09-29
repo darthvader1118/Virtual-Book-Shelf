@@ -33,7 +33,7 @@ function bookSearch(){
       success: function(data) {
         console.log(data)
         if(data.totalItems ==0){
-          $('#searchResults').html('No results were found for: ' + parseSearch + '. Try another author/title')
+          $('#searchResults').html('No results were found for: ' + search + '. Try another author/title')
           console.log("Error")
         }
         else{
