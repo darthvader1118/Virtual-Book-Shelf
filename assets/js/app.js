@@ -172,6 +172,3 @@ $(document).on('click', '.bookInfo', function(){
     });
 
 });
-
-
-
