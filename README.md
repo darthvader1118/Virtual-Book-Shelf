@@ -4,7 +4,8 @@ User can input a title or author and the web page will return a list of search r
 
 # Screenshots 
 
-![Book Shelf](assets/images/UI.png)
+![Book Shelf](http://imgur.com/wghs2u0)
+![Book Info]("imgur link")
 
 
 ## Technologies used
@@ -45,7 +46,8 @@ heroku link: https://virtualbookshelf.herokuapp.com/
 
 ## Walk throughs of code 
 
-//Clicking books on shelf to grab info
+Clicking books on shelf to grab info
+
 $(document).on('click', '.bookInfo', function(){
   console.log(this);
   var currentBook;
@@ -57,7 +59,8 @@ $(document).on('click', '.bookInfo', function(){
   var displayStars;
   var link;
 
-  // Limits id grab from Firebase by the one that matches title selected
+  Limits id grab from Firebase by the one that matches title selected
+
   database.ref().orderBy Child("title").equalTo(displayTitle).limitToFirst(1).on("child_added", function(snapTest) {
     currentBook = snapTest.key;
     console.log(currentBook);
