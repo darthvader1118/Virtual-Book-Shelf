@@ -4,8 +4,9 @@ User can input a title or author and the web page will return a list of search r
 
 # Screenshots 
 
-![Book Shelf](http://imgur.com/wghs2u0)
-![Book Info]("imgur link")
+* Book Shelf link : (http://imgur.com/wghs2u0)
+* Book Info Display : 
+
 
 
 ## Technologies used
@@ -18,7 +19,7 @@ You can give a brief listing of the technologies you've learned and applied here
 - Google Books API
 - Google Fonts
 - Materialize
-- sweetalert
+- Sweet Alerts
 
 ## Getting Started
 
@@ -48,6 +49,7 @@ heroku link: https://virtualbookshelf.herokuapp.com/
 
 Clicking books on shelf to grab info
 
+```
 $(document).on('click', '.bookInfo', function(){
   console.log(this);
   var currentBook;
@@ -76,24 +78,19 @@ $(document).on('click', '.bookInfo', function(){
     }
   });
 
-
-// 
-
-
-
 ```
 
 ## Authors
 
--  **Krishna Yallayi** - *Dreambooks API & Sorting Function* - [Krishna](https://github.com/darthvader1118)
--  **Mario Aburto** - *Firebase & GoogleBooks API* - [Mario](https://github.com/marioaburto10)
--  **Muhammet Aydin** - *Dreambooks API, sweetalert, Debugging* - [Muhammet](https://github.com/muhammeta7)
--  **Stefanie Ding** - *Google Books API, HTML, CSS, JS files, Debugging* - [Stefanie](https://github.com/StefanieDing)
+*  **Krishna Yallayi** - *Dreambooks API & Sorting Function* - [Krishna](https://github.com/darthvader1118)
+*  **Mario Aburto** - *Firebase & GoogleBooks API* - [Mario](https://github.com/marioaburto10)
+*  **Muhammet Aydin** - *Dreambooks API, sweetalert, Debugging* - [Muhammet](https://github.com/muhammeta7)
+*  **Stefanie Ding** - *Google Books API, HTML, CSS, JS files, Debugging* - [Stefanie](https://github.com/StefanieDing)
 
 
 ## Acknowledgments
 
-- Thanks to all of the the team members for their contributions to this project.
-- Also thanks to Dan, Nate, Jimmy, and Quincy for all their help.  
-- Inspiration: To help people who frequently read but forget which books they may own or already have.
+* Thanks to all of the the team members for their contributions to this project.
+* Also thanks to Dan, Nate, Jimmy, and Quincy for all their help.  
+* Inspiration: To help people who frequently read but forget which books they may own or already have.
   
