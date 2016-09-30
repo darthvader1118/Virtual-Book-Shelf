@@ -106,10 +106,11 @@ $(document).on('click', '.thisBook', function(){
     var displayAuthor = $(this).data('author');
     var displaySummary = $(this).data('description');
       // //sweet alert
-      // swal({
-      //   title: displayTitle,
-      //   text: "this is just a test"
-      //   // imageUrl: "../images/Stars-0.5.jpg" 
+      swal({
+        title: displayTitle,
+        text: "this is just a test"
+        // imageUrl: "../images/Stars-0.5.jpg" 
+      })
   });
 });
 
