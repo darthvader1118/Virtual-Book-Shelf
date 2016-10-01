@@ -213,7 +213,7 @@ $('#abcTitle').on('click', function(){
   sorted.attr('src', img).addClass('coverCSS bookInfo');
   $('.bookshelf-panel').append(sorted);
   }
-  debugger;
+  //debugger;
     // var data = snapshot.val();
     // var titleArray = [];
     // $.each(data, function(key, value){
