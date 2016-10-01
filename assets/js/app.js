@@ -30,22 +30,26 @@ function bookSearch(){
     $('#searchResults').empty();
   }
 
+  // Takes the value of what the user search inputs
   var search = $('#titleInput').val().trim();
   // parseSearch adds the + sign in between search words, might not need it
   var parseSearch = search.split(" ").join("+");
   titleVars.push(parseSearch);
   console.log(parseSearch);
 
+  // AJAX call function to get data from Google Books API
   $.ajax({
     url: 'https://www.googleapis.com/books/v1/volumes?q=' + parseSearch,
     type: 'GET',
     dataType: 'JSON',
     data: {param1: 'value1'},
     success: function(data) {
+      // Logic for when the user inputs a search that has no results
      if(data.totalItems ==0){
         $('#searchResults').html('No results were found for: ' + search + '. Try another author/title')
         console.log("Error")
       } else{
+         // for loop to loop through the JSON to retrive each book attributes
           for (var i = 0; i < data.items.length; i++) {
           var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
           var titles = data.items[i].volumeInfo.title;
@@ -60,17 +64,18 @@ function bookSearch(){
       }
     }
   })
-
+  //clears the user input value
   $('#titleInput').val(" ");
 
   return false;
   }
 
+// Anonymous function for when user selects book from Search Results
 $(document).on('click', '#submit-titleAuthor', bookSearch);
-
 
 // When user selects from Search Results
 $(document).on('click', '.thisBook', function(){
+  // creating vaiables that get assigned a specific book attribute
   var cover = $(this).data('images');
   var title = $(this).data('title');
   var author = $(this).data('author');
@@ -83,11 +88,13 @@ $(document).on('click', '.thisBook', function(){
 
   var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + search + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
 
+  //AJAX function to get book reviews and ratings
   $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
     console.log(reviews);
     reviewLink = (reviews.book.critic_reviews.length == 0) ? 'no reviews' : reviews.book.critic_reviews[0].review_link;
     starRating = (reviews.book.critic_reviews.length == 0) ?  '0' : reviews.book.critic_reviews[0].star_rating;
-  
+
+  // clears search results area
   $('#searchResults').empty();
 
  // Creates local "temporary" object for holding book data
@@ -101,6 +108,7 @@ $(document).on('click', '.thisBook', function(){
     starRating: starRating
   }
   console.log(newBook);
+  // pushes book to firebase
   database.ref().push(newBook);
   });
 });
@@ -108,13 +116,14 @@ $(document).on('click', '.thisBook', function(){
 // Function that adds book to database and displays books on bookshelf on page load
 database.ref().on("child_added", function(snapshot) {
   var cover = $("<img height='200px'>");
-  cover.attr({'data-year': snapshot.val().year}).attr({'data-title': snapshot.val().title}).attr({'data-author': snapshot.val().author}).attr({'data-description': snapshot.val().description});
-  // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
+  cover.attr({'data-year': snapshot.val().year})
+    .attr({'data-title': snapshot.val().title})
+    .attr({'data-author': snapshot.val().author})
+    .attr({'data-description': snapshot.val().description});
   var img = snapshot.val().cover;
   cover.attr('src', img).addClass('coverCSS bookInfo');
   $('.bookshelf-panel').append(cover);
 });
-
 
 //Clicking books on shelf to grab info
 $(document).on('click', '.bookInfo', function(){
@@ -127,20 +136,16 @@ $(document).on('click', '.bookInfo', function(){
   var displayLink;
   var displayStars;
   var link;
-  // var displayLink = $(this).data('reviewLink');
-  // console.log(displayLink);
-  // var displayStars = $(this).data('starRating');
-  // var link = "Review Link"
- 
+
   //limits the id grab by the one that matches the title selected
   database.ref().orderByChild("title").equalTo(displayTitle).limitToFirst(1).on("child_added", function(snapTest) {
     currentBook = snapTest.key;
     console.log(currentBook);
-    database.ref().child('currentBook').remove();
     displayLink = snapTest.val().reviewLink;
     displayStars = snapTest.val().starRating;
     console.log(displayLink + " " + displayStars);
-    
+
+    // logic for when a book has no review
     if (displayLink == 'no reviews'){
       link = "No review.";
     } else{
