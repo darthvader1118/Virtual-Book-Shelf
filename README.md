@@ -7,11 +7,7 @@ User can input a title or author and the web page will return a list of search r
 * Book Shelf link : (http://imgur.com/wghs2u0)
 * Book Info Display : 
 
-
-
 ## Technologies used
-
-You can give a brief listing of the technologies you've learned and applied here- API's 
 
 - Bootstrap
 - Firebase db
