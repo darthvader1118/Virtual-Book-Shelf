@@ -5,13 +5,10 @@
   <meta charset="UTF-8">
   <link rel="shortcut icon" href="assets/images/Untitled-6.png" />
   <title>Virtual Bookshelf</title>
-<!-- <<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD -->
+<!-- HEAD -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css?family=Goudy+Bookletter+1911" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!-- Materialize -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
   <link rel='stylesheet' href='assets/css/style.css'>
@@ -40,28 +37,17 @@
         </table>
       </div>
 
-      <!-- Pagination -->
-      <!-- <ul class="pagination">
-          <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-          <li class="active blue accent-2"><a href="#Page-1">1</a></li>
-          <li class="waves-effect"><a href="#Page-2">2</a></li>
-          <li class="waves-effect"><a href="#Page-3">3</a></li>
-          <li class="waves-effect"><a href="#Page-4">4</a></li>
-          <li class="waves-effect"><a href="#Page-5">5</a></li>
-          <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-      </ul> -->
-
       <!-- User Input Panel -->
       <div class='card'>
-          <h3>Add a book</h3>
+          <h2>Add a book</h2>
           <div class="row">
               <div class="col s12">
                   <ul class="tabs indigo darken-1">
-                      <li class="tab col s3"><a class="active" href="#ISBN-form">ISBN</a></li>
-                      <li class="tab col s3"><a href="#TA-form">Title/Author</a></li>
+                     <!--  <li class="tab col s3"><a href="#ISBN-form">ISBN</a></li> -->
+                      <li class="tab col s3"><a  class="active" href="#TA-form">Title/Author</a></li>
                   </ul>
               </div>
-              <div class="col s12">
+             <!--  <div class="col s12">
                   <form class='col s12' id="ISBN-form">
                       <div class='input-field'>
                           <input id='isbnInput' maxlength="13" type='number' class='validate'>
@@ -70,18 +56,13 @@
                           <button class='blue accent-2 btn' id='submit-isbn'>Submit</button>
                       </div>
                   </form>
-              </div>
+              </div> -->
               <div class="col s12">
                   <form class='col s12' id="TA-form">
                       <div class='input-field'>
                           <input id='titleInput' type='text' class='validate'>
                           <label for="titleInput">Title or Author</label>
                       </div>
-                      <!-- <div class='input-field'>
-                          <input id='authorInput' type='text' class='validate'>
-                          <label for="authorInput">Author</label>
-                          <div id='titleAuthorErrorMsg'></div>
-                      </div> -->
                       <button class='blue accent-2 btn' id='submit-titleAuthor'>Submit</button>
                   </form>
               </div>
@@ -89,7 +70,7 @@
       </div>
       <!-- List of books from search -->
       <div class='row card-panel'>
-          <h4>Search Results</h4>
+          <h2>Search Results</h2>
           <div id ='searchResults'></div>
       </div>
   </div>
