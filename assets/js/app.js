@@ -30,22 +30,27 @@ function bookSearch(){
     $('#searchResults').empty();
   }
 
+// Takes the value of what the user search inputs
   var search = $('#titleInput').val().trim();
-  // parseSearch adds the + sign in between search words, might not need it
+  // parseSearch adds the + sign in between search word
   var parseSearch = search.split(" ").join("+");
   titleVars.push(parseSearch);
   console.log(parseSearch);
 
+
+// AJAX call function to get data from Google Books API
   $.ajax({
     url: 'https://www.googleapis.com/books/v1/volumes?q=' + parseSearch,
     type: 'GET',
     dataType: 'JSON',
     data: {param1: 'value1'},
     success: function(data) {
+      // Logic for when the user inputs a search that has no results
      if(data.totalItems ==0){
         $('#searchResults').html('No results were found for: ' + search + '. Try another author/title')
         console.log("Error")
       } else{
+        // for loop to loop through the JSON to retrive each book attributes
           for (var i = 0; i < data.items.length; i++) {
           var images = data.items[i].volumeInfo.imageLinks.smallThumbnail;
           var titles = data.items[i].volumeInfo.title;
@@ -60,17 +65,20 @@ function bookSearch(){
       }
     }
   })
-
+  // clears the imput are
   $('#titleInput').val(" ");
 
+  // keeps the page from refreshing
   return false;
   }
 
+//Calls on bookSearch function whenever someone clicks on the submit button
 $(document).on('click', '#submit-titleAuthor', bookSearch);
 
 
-// When user selects from Search Results
+// Anonymous function for when user selects book from Search Results
 $(document).on('click', '.thisBook', function(){
+  // creating vaiables that get assigned a specific book attribute
   var cover = $(this).data('images');
   var title = $(this).data('title');
   var author = $(this).data('author');
@@ -83,11 +91,13 @@ $(document).on('click', '.thisBook', function(){
 
   var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + search + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
 
+  //AJAX function to get book reviews and ratings
   $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
     console.log(reviews);
     reviewLink = (reviews.book.critic_reviews.length == 0) ? 'no reviews' : reviews.book.critic_reviews[0].review_link;
     starRating = (reviews.book.critic_reviews.length == 0) ?  '0' : reviews.book.critic_reviews[0].star_rating;
-  
+
+  // clears search results area
   $('#searchResults').empty();
 
  // Creates local "temporary" object for holding book data
@@ -101,6 +111,8 @@ $(document).on('click', '.thisBook', function(){
     starRating: starRating
   }
   console.log(newBook);
+
+  // pushes book to firebase
   database.ref().push(newBook);
   });
 });
@@ -131,8 +143,8 @@ $(document).on('click', '.bookInfo', function(){
   // console.log(displayLink);
   // var displayStars = $(this).data('starRating');
   // var link = "Review Link"
- 
-  //limits the id grab by the one that matches the title selected
+
+  //limits the id grab from firebase by the one that matches the title selected
   database.ref().orderByChild("title").equalTo(displayTitle).limitToFirst(1).on("child_added", function(snapTest) {
     currentBook = snapTest.key;
     console.log(currentBook);
@@ -140,7 +152,8 @@ $(document).on('click', '.bookInfo', function(){
     displayLink = snapTest.val().reviewLink;
     displayStars = snapTest.val().starRating;
     console.log(displayLink + " " + displayStars);
-    
+
+    // logic for when a book has no review
     if (displayLink == 'no reviews'){
       link = "No review.";
     } else{
