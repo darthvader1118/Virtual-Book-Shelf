@@ -1,12 +1,11 @@
-# Top Shelf
+# Virtual Bookshelf
 
 User can input a title or author and the web page will return a list of search results. After selecting the book they were looking by clicking on the item that best describes what they were searching for. The site then automatically renders the book cover onto your bookshelf. The user can now click on the book cover to get information about it ranging from authors to NY Times Star rating, etc. The person can also remove the book from their bookshelf if they choose to. 
 
 # Screenshots 
 
-* ![Image of Bookshelf](http://i.imgur.com/wghs2u0.png?1)
-* Book Shelf link : (http://imgur.com/wghs2u0)
-* Book Info Display : 
+![Image of Bookshelf](http://i.imgur.com/wghs2u0.png?1)
+![Alt text](assets/images/Screen Shot 2016-09-30 at 10.05.27 PM.png "Sweet Alerts")
 
 ## Technologies used
 
