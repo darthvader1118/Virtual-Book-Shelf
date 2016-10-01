@@ -119,58 +119,58 @@ database.ref().on("child_added", function(snapshot) {
 //Clicking books on shelf to grab info
 $(document).on('click', '.bookInfo', function(){
 
-  var title2 = $(this).data('title');
-  var author2 = $(this).data('author');
-  var description2 = $(this).data('description');
+ //  var title2 = $(this).data('title');
+ //  var author2 = $(this).data('author');
+ //  var description2 = $(this).data('description');
 
-  console.log(description2);
+ //  console.log(description2);
 
 
 
-   // Set up empty array for star rating images and other variables
-  var ratingsArray = [];
-  for(var i = 0; i < 10.5; i = i + 0.5){
-    ratingsArray.push(i);
-  }
-  var reviewLink;
-  var starRating;
-  var search2 = titleVars[j];
-  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + search2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
-  $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
-  console.log(reviews);
-  reviewLink = reviews.book.critic_reviews[0].review_link;
-  starRating = reviews.book.critic_reviews[0].star_rating;
-   // jQuery for display when book is clicked on
-  // $('#display').html('<h3>Star Rating: ' + starRating + '<h3>')
-  // $('#display').html('<h3>Review Link: ' + reviewLink + '<h3>')
-  console.log(reviewLink);
-  console.log(starRating);
- // Creating star rating image dynamically
-  var source = "/assets/images/Stars-"
-  var reviewImg = $('<img height="25px">')
-  var source = "./assets/images/Stars-"
-  var j = ratingsArray.indexOf(starRating);
-  source = source + ratingsArray[j] + ".jpg";
-  reviewImg.attr('src', source);
+ //   // Set up empty array for star rating images and other variables
+ //  var ratingsArray = [];
+ //  for(var i = 0; i < 10.5; i = i + 0.5){
+ //    ratingsArray.push(i);
+ //  }
+ //  var reviewLink;
+ //  var starRating;
+ //  var search2 = titleVars[j];
+ //  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + search2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
+ //  $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
+ //  console.log(reviews);
+ //  reviewLink = reviews.book.critic_reviews[0].review_link;
+ //  starRating = reviews.book.critic_reviews[0].star_rating;
+ //   // jQuery for display when book is clicked on
+ //  // $('#display').html('<h3>Star Rating: ' + starRating + '<h3>')
+ //  // $('#display').html('<h3>Review Link: ' + reviewLink + '<h3>')
+ //  console.log(reviewLink);
+ //  console.log(starRating);
+ // // Creating star rating image dynamically
+ //  var source = "/assets/images/Stars-"
+ //  var reviewImg = $('<img height="25px">')
+ //  var source = "./assets/images/Stars-"
+ //  var j = ratingsArray.indexOf(starRating);
+ //  source = source + ratingsArray[j] + ".jpg";
+ //  reviewImg.attr('src', source);
 
-  //sweet alert
-  swal({
-    title: title2,
-    text: author2, description2
-  });
-  // swal("Here's a message!");
-  // var title2 = $(this).data('title');
-  // console.log(title2);
-  // var author2 = $(this).data('author');
-  // console.log(author2);
-  // var description2 = $(this).data('description');
-  // console.log(description2);
+ //  //sweet alert
+ //  swal({
+ //    title: title2,
+ //    text: author2, description2
+ //  });
+ //  // swal("Here's a message!");
+ //  // var title2 = $(this).data('title');
+ //  // console.log(title2);
+ //  // var author2 = $(this).data('author');
+ //  // console.log(author2);
+ //  // var description2 = $(this).data('description');
+ //  // console.log(description2);
   
-  var bookInfoDiv = $('<div>');
-  bookInfoDiv.addClass('alert alert-info')
-  var closerBtn = $('<button type="button" class="close" data-dismiss="alert">')
-  closerBtn.html('X');
-  var bookInfo = $('<div>');
+ //  var bookInfoDiv = $('<div>');
+ //  bookInfoDiv.addClass('alert alert-info')
+ //  var closerBtn = $('<button type="button" class="close" data-dismiss="alert">')
+ //  closerBtn.html('X');
+ //  var bookInfo = $('<div>');
 
 
   console.log(this);
@@ -229,13 +229,13 @@ $(document).on('click', '.bookInfo', function(){
 
 });
 var objArr = []
-//abc sorting of all the books in the bookshelf
+// abc sorting of all the books in the bookshelf
 $('#abcTitle').on('click', function(){
   database.ref().on("child_added", function(snapshot) {
-    console.log(snapshot.val());
+    // console.log(snapshot.val());
     
     objArr.push(snapshot.val())
-    console.log('len:' + objArr.length)
+    // console.log('len:' + objArr.length)
 
     
 
@@ -248,30 +248,82 @@ $('#abcTitle').on('click', function(){
        }
       }
     }
+
     $('.bookshelf-panel').empty();
-  for(var obj in objArr){
+  for(var i = 0; i < objArr.length; i++){
+    var obj = objArr[i];
+    console.log(obj)
     var sorted = $("<img height='200px'>");
  
   sorted.attr({'data-year': obj.year}).attr({'data-title': obj.title}).attr({'data-author': obj.author}).attr({'data-description': obj.description});
   // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
-  var img = snapshot.val().cover;
+  var img = obj.cover;
   sorted.attr('src', img).addClass('coverCSS bookInfo');
   $('.bookshelf-panel').append(sorted);
   }
-
+  debugger;
     // var data = snapshot.val();
     // var titleArray = [];
     // $.each(data, function(key, value){
     //   titleArray.push(value.title);
     // });
+    
  });
-})
+});
+// objArr = [];
+
+// $('#abcAuthor').on('click', function(){
+ 
+//   database.ref().on("child_added", function(snapshot) {
+//     console.log(snapshot.val());
+    
+//     objArr.push(snapshot.val())
+//     console.log('len:' + objArr.length)
+
+    
+
+//     for(var i = 1; i < objArr.length; i++){
+//       for(var j =1; j < objArr.length; j++){
+//        if(sortABC(objArr[j], objArr[j-1]) == -1){
+//         var tmp = objArr[j-1];
+//         objArr[j-1] = objArr[j];
+//         objArr[j] =tmp;
+//        }
+//       }
+//     }
+
+//     $('.bookshelf-panel').empty();
+//   for(var i = 0; i < objArr.length; i++){
+//     var obj = objArr[i];
+//     console.log(obj)
+//     var sorted = $("<img height='200px'>");
+ 
+//   sorted.attr({'data-year': obj.year}).attr({'data-title': obj.title}).attr({'data-author': obj.author}).attr({'data-description': obj.description});
+//   // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
+//   var img = obj.cover;
+//   sorted.attr('src', img).addClass('coverCSS bookInfo');
+//   $('.bookshelf-panel').append(sorted);
+//   }
+
+//     // var data = snapshot.val();
+//     // var titleArray = [];
+//     // $.each(data, function(key, value){
+//     //   titleArray.push(value.title);
+//     // });
+//  });
+// });
 
   function sort(a, b) {
         var textA = a.title.toUpperCase();
         var textB = b.title.toUpperCase();
         return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
       }
+
+   // function sortABC(a, b) {
+   //      var textA = a.author.toUpperCase();
+   //      var textB = b.author.toUpperCase();
+   //      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+   //    }
 
 
 
