@@ -4,6 +4,7 @@ User can input a title or author and the web page will return a list of search r
 
 # Screenshots 
 
+* ![Image of Bookshelf](http://i.imgur.com/wghs2u0.png?1)
 * Book Shelf link : (http://imgur.com/wghs2u0)
 * Book Info Display : 
 
