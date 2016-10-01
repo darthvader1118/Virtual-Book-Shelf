@@ -229,6 +229,7 @@ $(document).on('click', '.bookInfo', function(){
 
 });
 var objArr = []
+//abc sorting of all the books in the bookshelf
 $('#abcTitle').on('click', function(){
   database.ref().on("child_added", function(snapshot) {
     console.log(snapshot.val());
@@ -247,7 +248,16 @@ $('#abcTitle').on('click', function(){
        }
       }
     }
-    console.log(objArr)
+    $('.bookshelf-panel').empty();
+  for(var obj in objArr){
+    var sorted = $("<img height='200px'>");
+ 
+  sorted.attr({'data-year': obj.year}).attr({'data-title': obj.title}).attr({'data-author': obj.author}).attr({'data-description': obj.description});
+  // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
+  var img = snapshot.val().cover;
+  sorted.attr('src', img).addClass('coverCSS bookInfo');
+  $('.bookshelf-panel').append(sorted);
+  }
 
     // var data = snapshot.val();
     // var titleArray = [];
