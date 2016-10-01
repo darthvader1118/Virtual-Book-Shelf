@@ -126,6 +126,7 @@ database.ref().on("child_added", function(snapshot) {
 });
 
 //Clicking books on shelf to grab info
+
 $(document).on('click', '.bookInfo', function() {
     console.log(this);
     var currentBook;
@@ -153,6 +154,7 @@ $(document).on('click', '.bookInfo', function() {
         }
     });
 
+
     //Sweet Alert!
     swal({
             title: displayTitle,
@@ -177,3 +179,104 @@ $(document).on('click', '.bookInfo', function() {
         });
 
 });
+
+var objArr = []
+// abc sorting of all the books in the bookshelf
+$('#abcTitle').on('click', function(){
+  database.ref().on("child_added", function(snapshot) {
+    // console.log(snapshot.val());
+    
+    objArr.push(snapshot.val())
+    // console.log('len:' + objArr.length)
+
+    
+
+    for(var i = 1; i < objArr.length; i++){
+      for(var j =1; j < objArr.length; j++){
+       if(sort(objArr[j], objArr[j-1]) == -1){
+        var tmp = objArr[j-1];
+        objArr[j-1] = objArr[j];
+        objArr[j] =tmp;
+       }
+      }
+    }
+
+    $('.bookshelf-panel').empty();
+  for(var i = 0; i < objArr.length; i++){
+    var obj = objArr[i];
+    console.log(obj)
+    var sorted = $("<img height='200px'>");
+ 
+  sorted.attr({'data-year': obj.year}).attr({'data-title': obj.title}).attr({'data-author': obj.author}).attr({'data-description': obj.description});
+  // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
+  var img = obj.cover;
+  sorted.attr('src', img).addClass('coverCSS bookInfo');
+  $('.bookshelf-panel').append(sorted);
+  }
+  debugger;
+    // var data = snapshot.val();
+    // var titleArray = [];
+    // $.each(data, function(key, value){
+    //   titleArray.push(value.title);
+    // });
+    
+ });
+});
+// objArr = [];
+
+// $('#abcAuthor').on('click', function(){
+ 
+//   database.ref().on("child_added", function(snapshot) {
+//     console.log(snapshot.val());
+    
+//     objArr.push(snapshot.val())
+//     console.log('len:' + objArr.length)
+
+    
+
+//     for(var i = 1; i < objArr.length; i++){
+//       for(var j =1; j < objArr.length; j++){
+//        if(sortABC(objArr[j], objArr[j-1]) == -1){
+//         var tmp = objArr[j-1];
+//         objArr[j-1] = objArr[j];
+//         objArr[j] =tmp;
+//        }
+//       }
+//     }
+
+//     $('.bookshelf-panel').empty();
+//   for(var i = 0; i < objArr.length; i++){
+//     var obj = objArr[i];
+//     console.log(obj)
+//     var sorted = $("<img height='200px'>");
+ 
+//   sorted.attr({'data-year': obj.year}).attr({'data-title': obj.title}).attr({'data-author': obj.author}).attr({'data-description': obj.description});
+//   // cover.attr({'data-starRating': starRating}).attr({'data-reviewLink' : reviewLink});
+//   var img = obj.cover;
+//   sorted.attr('src', img).addClass('coverCSS bookInfo');
+//   $('.bookshelf-panel').append(sorted);
+//   }
+
+//     // var data = snapshot.val();
+//     // var titleArray = [];
+//     // $.each(data, function(key, value){
+//     //   titleArray.push(value.title);
+//     // });
+//  });
+// });
+
+  function sort(a, b) {
+        var textA = a.title.toUpperCase();
+        var textB = b.title.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      }
+
+   // function sortABC(a, b) {
+   //      var textA = a.author.toUpperCase();
+   //      var textB = b.author.toUpperCase();
+   //      return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+   //    }
+
+
+
+
