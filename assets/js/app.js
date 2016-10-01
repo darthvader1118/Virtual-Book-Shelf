@@ -127,7 +127,7 @@ $(document).on('click', '.bookInfo', function(){
   var reviewLink;
   var starRating;
   var search2 = titleVars[j];
-  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + parseSearch2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
+  var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + search2 + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
   $.ajax({url: dreambooksURL, type: 'GET'}).done(function(reviews){
   console.log(reviews);
   reviewLink = reviews.book.critic_reviews[0].review_link;
@@ -174,33 +174,40 @@ $(document).on('click', '.bookInfo', function(){
   j++;
 
 });
-
+var objArr = []
 $('#abcTitle').on('click', function(){
   database.ref().on("child_added", function(snapshot) {
-  console.log(snapshot);
-  snapshot.sort(function(a, b) {
-    var textA = a.title.toUpperCase();
-    var textB = b.title.toUpperCase();
-    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-  });
+    console.log(snapshot.val());
+    
+    objArr.push(snapshot.val())
+    console.log('len:' + objArr.length)
 
-  for(var i = 0; i < snapshot.length; i++){
-    for(var j = 0; j < snapshot.length; j++){
-      snapshot.sort(snapshot[i],snapshot[i+1])
+    
+
+    for(var i = 1; i < objArr.length; i++){
+      for(var j =1; j < objArr.length; j++){
+       if(sort(objArr[j], objArr[j-1]) == -1){
+        var tmp = objArr[j-1];
+        objArr[j-1] = objArr[j];
+        objArr[j] =tmp;
+       }
+      }
     }
-  }
+    console.log(objArr)
 
-  // var data = snapshot.val();
-  // var titleArray = [];
-  // $.each(data, function(key, value){
-  //   titleArray.push(value.title);
-  // });
-
-
+    // var data = snapshot.val();
+    // var titleArray = [];
+    // $.each(data, function(key, value){
+    //   titleArray.push(value.title);
+    // });
  });
 })
 
-
+  function sort(a, b) {
+        var textA = a.title.toUpperCase();
+        var textB = b.title.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      }
 
 
 
