@@ -5,7 +5,7 @@ User can input a title or author and the web page will return a list of search r
 # Screenshots 
 
 ![Image of Bookshelf](http://i.imgur.com/wghs2u0.png?1)
-![Alt text](assets/images/Screen Shot 2016-09-30 at 10.05.27 PM.png "Sweet Alerts")
+![Sweet Alerts](assets/images/Screen Shot 2016-09-30 at 10.05.27 PM.png)
 
 ## Technologies used
 
