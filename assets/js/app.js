@@ -86,7 +86,7 @@ $(document).on('click', '.thisBook', function() {
     var starRating;
     var search = title.split(" ").join("+");
 
-    var dreambooksURL = "http://idreambooks.com/api/books/reviews.json?q=" + search + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
+    var dreambooksURL = "https://idreambooks.com/api/books/reviews.json?q=" + search + "&key=da5e557ab077cd7d98bef194bedc0e000c1e75af"
 
     //AJAX function to get book reviews and ratings
     $.ajax({ url: dreambooksURL, type: 'GET' }).done(function(reviews) {
